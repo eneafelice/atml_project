@@ -1,6 +1,8 @@
 import streamlit as st
 from transformers import pipeline
 
+st.set_page_config(page_title="📬 Email Priority Analyzer", layout="centered")
+
 # Load NLP models (cached for performance)
 @st.cache_resource
 def load_models():
