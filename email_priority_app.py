@@ -1,9 +1,10 @@
 import streamlit as st
 from transformers import pipeline
 
+# ✅ MUST BE FIRST Streamlit command
 st.set_page_config(page_title="📬 Email Priority Analyzer", layout="centered")
 
-# Load NLP models (cached for performance)
+# Load sentiment and emotion models (cached for performance)
 @st.cache_resource
 def load_models():
     sentiment = pipeline("sentiment-analysis", model="cardiffnlp/twitter-roberta-base-sentiment")
@@ -36,7 +37,6 @@ def compute_priority(sentiment, emotion, urgency, vip):
     return round(min(score, 1.0) * 100)
 
 # ---- Streamlit UI ----
-st.set_page_config(page_title="📬 Email Priority Analyzer", layout="centered")
 st.title("📬 Smart Email Priority Analyzer")
 st.markdown("Analyze urgency, emotion, and sentiment of customer emails to assign priority.")
 
@@ -64,3 +64,4 @@ if st.button("🚦 Analyze Priority") and email_text.strip():
         st.warning("⚠️ Medium Priority — respond soon.")
     else:
         st.info("✅ Low Priority — can wait.")
+
